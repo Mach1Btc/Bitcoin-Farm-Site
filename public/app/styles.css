@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    background: #ff6600; /* Fallback color */
+	background: linear-gradient(to bottom, #ff6600, #ffcc00);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#under-construction-container {
+    text-align: center;
+}
+
+.construction-icon {
+    max-width: 200px;
+}
+
+.construction-heading {
+    color: #000;
+    font-size: 36px;
+    margin-top: 20px;
+}
+
+.construction-text {
+    color: #000;
+    margin-top: 10px;
+}
+
+
+@media only screen and (max-width: 799px) {
+	body{
+		background-size: 100% 150%;
+		font-size: 14px;
+	}
+}

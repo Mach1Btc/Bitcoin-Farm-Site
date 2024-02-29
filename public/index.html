@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mach1 Bitcoin Farm</title>
+	<link rel="icon" href="MainLogo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="MainLogo.png" type="image/x-icon">
+	
+	
+	
+    <link rel="stylesheet" href="styles.css">
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.5.0/web3.min.js"></script>
+	<script src="copyNotification.js" defer></script>
+    <script src="fetchData.js" defer></script>
+	
+</head>
+<body>
+    <header>
+        
+        
+    </header>
+	
+	<div class="body-container">
+		<img src="MainLogo.png" alt="Mach1BtcFarm" class="rounded-logo">
+		
+		<div class="contract-info">
+			<p class="contract-label">Contract Address:</p>
+			<p class="copy-text" onclick="copy(this)">0x4c9dD74459AeA876Bc34b323c780D77b79fAD29F</p>
+		</div>
+	
+		<nav>
+			
+			<!-- Vertical list of links -->
+			<ul>
+				<li><a href="https://traderjoexyz.com/avalanche/trade?inputCurrency=AVAX&amp;outputCurrency=0x4c9dD74459AeA876Bc34b323c780D77b79fAD29F" target="_blank">Buy Token on Trader Joe</a></li>
+				<li><a href="https://twitter.com/MachOneBtcFarm" target="_blank">Mach1BtcFarm on X</a></li>
+				<li><a href="https://snowscan.xyz/address/0x4c9dD74459AeA876Bc34b323c780D77b79fAD29F#code" target="_blank">Snowscan</a></li>
+				<li><a href="https://dexscreener.com/avalanche/0x8af5064a5351bf7d4f5bf916f0973fa987deef7b" target="_blank">Dexscreener</a></li>
+				<li><a href="https://t.me/+xDn0BVU2ZFsyMDMx" target="_blank">Telegram</a></li>
+			</ul>
+		</nav>
+		
+		<!-- Stats display box -->
+		<div class="stats-container">
+			<a href="https://snowscan.xyz/token/0x4c9dD74459AeA876Bc34b323c780D77b79fAD29F#balances" target="_blank" class="stat-button">
+				<div class="stat">
+					<span class="stat-label">Holders</span>
+					<span class="stat-value" id="holders-stat">...</span>
+				</div>
+			</a>
+			<a href="https://dexscreener.com/avalanche/0x8af5064a5351bf7d4f5bf916f0973fa987deef7b" target="_blank" class="stat-button">
+				<div class="stat">
+					<span class="stat-label">Price</span>
+					<span class="stat-value" id="price-stat">...</span>
+				</div>
+			</a>
+			<div class="stat">
+				<span class="stat-label">Distributed Rewards</span>
+				<span class="stat-value" id ="distrRewards-stat">...</span>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
