@@ -3,16 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Under Construction</title>
+    <title>Mach1 Btc Farm App</title>
     <link rel="stylesheet" href="styles.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.5.0/web3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/decimal.js/10.3.1/decimal.min.js"></script>
+	<script src="fetchData.js" defer></script>
+	<script defer src="addressValidation.js" defer></script>
 </head>
 <body>
-
-    <div id="under-construction-container">
-        <img src="construction-icon.png" alt="Under Construction Icon" class="construction-icon">
-        <h1 class="construction-heading">Under Construction</h1>
-        <p class="construction-text">We're working on something exciting.<br>Check back soon!</p>
-    </div>
-
+			<h2>Protocol Stats</h2>
+    		<div class="stats-container">
+				<a href="https://snowscan.xyz/token/0x4c9dD74459AeA876Bc34b323c780D77b79fAD29F#balances" target="_blank" class="stat-button">
+					<div class="stat">
+						<span class="stat-label">Holders</span>
+						<span class="stat-value" id="holders-stat">...</span>
+					</div>
+				</a>
+				<a href="https://dexscreener.com/avalanche/0x8af5064a5351bf7d4f5bf916f0973fa987deef7b" target="_blank" class="stat-button">
+					<div class="stat">
+						<span class="stat-label">Price</span>
+						<span class="stat-value" id="price-stat">...</span>
+					</div>
+				</a>
+				<div class="stat">
+					<span class="stat-label">Distributed Rewards</span>
+					<span class="stat-value" id ="distrRewards-stat">...</span>
+				</div>
+			</div>
+			
+			<h2 id="holder-stats-header">Holder Stats</h2>
+			<div class="stats-container">
+				<div class="stat">
+					<span class="stat-label">$MACH1 Balance</span>
+					<span class="stat-value" id="holder-balance-stat">...</span>
+				</div>
+				<div class="stat">
+					<span class="stat-label">Value ($)</span>
+					<span class="stat-value" id="holder-value-stat">...</span>
+				</div>
+				<div class="stat">
+					<span class="stat-label">Cummulative Rewards</span>
+					<span class="stat-value" id ="holder-cumm-rewards-stat">...</span>
+				</div>
+				<div class="stat">
+					<span class="stat-label">Unclaimed Rewards</span>
+					<span class="stat-value" id ="holder-unclaimed-rewards-stat">...</span>
+				</div>
+				<div class="addressInputContainer">
+					<input type="text" id="addressInput" placeholder="Enter your address">
+					<button id="calculateButton" onclick="validateAndUpdateHeader()">Calculate Stats</button>
+				</div>
+			</div>
+		
 </body>
 </html>

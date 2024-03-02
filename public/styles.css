@@ -23,7 +23,7 @@ body {
 	flex-direction: column; /* Stack items vertically */
     justify-content: center;
 	align-items: center;
-	transform: scale(1.5);
+	transform: scale(1);
 }
 
 body img {
@@ -44,7 +44,7 @@ div iframe {
 
 .contract-info {
     text-align: center;
-    margin-top: 20px; /* Add margin between the logo and contract info */
+    margin-top: 5px; /* Add margin between the logo and contract info */
 }
 
 .contract-label {
