@@ -235,3 +235,38 @@ nav ul li a {
         color: #fff;
     }
 }
+
+.rainbow-button {
+	animation: rainbowEffect 3s infinite;
+}
+
+@keyframes rainbowEffect {
+	0% {
+		color: violet;
+		border-color: violet;
+	}
+	16.666% {
+		color: indigo;
+		border-color: indigo;
+	}
+	33.333% {
+		color: blue;
+		border-color: blue;
+	}
+	50% {
+		color: green;
+		border-color: green;
+	}
+	66.666% {
+		color: yellow;
+		border-color: yellow;
+	}
+	83.333% {
+		color: orange;
+		border-color: orange;
+	}
+	100% {
+		color: red;
+		border-color: red;
+	}
+}
