@@ -1,4 +1,4 @@
-function validateAndUpdateHeader() {
+async function validateAndUpdateHeader() {
 	// Get the address entered by the user
 	var address = document.getElementById("addressInput").value;
 	
@@ -28,5 +28,5 @@ function validateAndUpdateHeader() {
 	
 	localStorage.setItem('userAddress', address);
 	
-	fetchHolderStats(address);
+	await fetchHolderStats(address);
 }

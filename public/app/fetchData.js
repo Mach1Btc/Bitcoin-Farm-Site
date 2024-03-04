@@ -39,7 +39,7 @@ function updateStats(data) {
 	
 	// Check if data['distrRewards'] is null or undefined
     distrRewardsElement.innerHTML = data['distrRewards'] !== null && data['distrRewards'] !== undefined
-        ? formatWithDecimal(data['distrRewards'].toString(), 8) + ' Btc.b'
+        ? addDecimal(data['distrRewards'].toString(), 8) + ' Btc.b'
         : '#.######## Btc.b';
 		
 	const priceStatElement = document.getElementById("price-stat");
@@ -56,7 +56,7 @@ async function fetchHoldersData() {
 	try{
 		const response = await fetch(`https://api.chainbase.online/v1/token/holders?chain_id=${network_id}&contract_address=${token_addr}&page=1&limit=1`, options);
 		const data = await response.json();
-		console.log('Holder data from smart contract:', data.count);
+		console.log('Holder data from token contract:', data.count);
 		return data.count;
 	} catch (error) {
 		console.error(error);
@@ -71,7 +71,7 @@ async function fetchRewardsData(web3) {
 	
 	try {
 		const result = await distributorContract.methods.totalDistributed().call();
-		console.log('Rewards data from smart contract:', result);
+		console.log('Rewards data from distributor contract:', result);
 		return result;
 	} catch (error) {
 		console.error('Error fetching rewards data:', error);
@@ -83,7 +83,7 @@ async function fetchLiquidityData() {
 	try {
 		const response = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${token_addr}`);
 		const data = await response.json();
-		console.log('Liquidity data from smart contract:', data);
+		console.log('Liquidity data from lp contract:', data);
 		return data;
 	} catch (error){
 		console.error('Error fetching liquidity data:', error);
@@ -98,6 +98,7 @@ async function fetchHolderStats(address){
 	const distributorContract = new web3.eth.Contract(distr_abi, distr_addr);
 	try{
 		data['balanceOf'] = await tokenContract.methods.balanceOf(address).call();
+		console.log('Holders balance from token contract:', data['balanceOf']);
 	} catch (error){
 		console.error('Error fetching holder\'s balance:', error);
 		throw error;
@@ -109,12 +110,14 @@ async function fetchHolderStats(address){
 		const amount = shares.amount;
 		
 		data['cummRewards'] = amount * divPerShare / shareAcc;
+		console.log('Holders reward balance from distributor contract:', data['cummRewards']);
 	} catch (error) {
 		console.error('Error fetching holder\'s cummulative rewards:', error);
 		throw error;
 	}
 	try{
 		data['unclaimRewards'] = await distributorContract.methods.getUnpaidEarnings(address).call();
+		console.log('Holders unclaimed balance from distributor contract:', data['unclaimRewards']);
 	} catch (error) {
 		console.error('Error fetching holder\'s unclaimed rewards:', error);
 		throw error;
@@ -128,38 +131,41 @@ function updateHolderStats(data){
 
     // Check if data['balanceOf'] is null or undefined
     balanceElement.innerHTML = data['balanceOf'] !== null && data['balanceOf'] !== undefined
-        ? truncateNafterDecimal(formatWithDecimal(data['balanceOf'],18),2)
+        ? formatNumber(addDecimal(data['balanceOf'], 18))
         : "###";
 
 	const valueElement = document.getElementById("holder-value-stat");
 
     // Check if data['balanceOf'] is null or undefined
     valueElement.innerHTML = data['balanceOf'] !== null && data['balanceOf'] !== undefined
-        ? '$' + truncateNafterDecimal(parseFloat(formatWithDecimal(data['balanceOf'],18)) * parseFloat(currentPrice),2)
+        ? '$' + formatNumber(parseFloat(addDecimal(data['balanceOf'],18)) * parseFloat(currentPrice))
         : "###";
 		
 	const cummRewardsElement = document.getElementById("holder-cumm-rewards-stat");
 
     // Check if data['cummRewards'] is null or undefined
     cummRewardsElement.innerHTML = data['cummRewards'] !== null && data['cummRewards'] !== undefined
-        ? formatWithDecimal(data['cummRewards'].toString(), 8) + ' Btc.b'
+        ? addDecimal(data['cummRewards'].toString(), 8) + ' Btc.b'
         :  '#.######## Btc.b';
 		
 	const unclaimedRewardsElement = document.getElementById("holder-unclaimed-rewards-stat");
 
-    // Check if data['unclaimRewards'] is null or undefined
+    // Check if data['unclaimRewards'] is null or undefined	
     unclaimedRewardsElement.innerHTML = data['unclaimRewards'] !== null && data['unclaimRewards'] !== undefined
-        ? formatWithDecimal(data['unclaimRewards'].toString(), 8) + ' Btc.b'
+        ? addDecimal(data['unclaimRewards'].toString(), 8) + ' Btc.b'
         :  '#.######## Btc.b';
-}
+	if (data['unclaimRewards'] == 0) {
+		const unclaimedRewardsStatElement = document.getElementById("unclaimed-reward-container");
+		unclaimedRewardsStatElement.style.display = "none";
+	}
+}	
 
 
 //UTIL
-
-function formatWithDecimal(stringValue, decimalPlaces) {
+//this shit is literally probably the stupidest way to do this, idc lol
+function addDecimal(stringValue, decimalPlaces) {
   const parts = String(stringValue).split('');
-  const length = parts.length;
-
+  let length = parts.length;
   // Calculate the position of the decimal point
   const decimalIndex = length - decimalPlaces;
   
@@ -181,30 +187,20 @@ function formatWithDecimal(stringValue, decimalPlaces) {
   return parts.join('');
 }
 
-function truncateNafterDecimal(stringValue, decimalPlaces) {
-	const parts = String(stringValue).split('');
-	const length = parts.length;
-	let indexOfDecimal = -1;
-	let n = -1;
-	for (let i = 0; i < length; i++){
-		if( parts[i] == '.'){
-			indexOfDecimal = i;
-			n = indexOfDecimal + decimalPlaces
-			break;
-		}
-	}
-	if (indexOfDecimal < 0 || n + 1 >= length){
-		return stringValue;
-	} else {
-		parts.splice(n + 1, length - n);
-		return parts.join('');
-	}
-	
-	
+function formatNumber(number, decimalPlaces = 2) {
+  // Ensure the input is a valid number
+  if (isNaN(number)) {
+    return "Invalid Number";
+  }
+
+  // Round the number to the specified decimal places
+  const roundedNumber = +(Number(number).toFixed(decimalPlaces));
+
+  // Add commas for thousands separator
+  const formattedNumber = roundedNumber.toLocaleString();
+
+  return formattedNumber;
 }
-
-
-
 
 // Trigger the data fetching when the DOM is ready
 document.addEventListener('DOMContentLoaded', function () {
