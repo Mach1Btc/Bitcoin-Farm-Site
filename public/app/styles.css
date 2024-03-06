@@ -218,6 +218,10 @@ nav ul li a {
 	.stat.tap-effect .stat-value {
 		color: #fff;
 	}
+	
+	body {
+		font-family: 'Roboto', sans-serif;
+	}
 }
 
 @media only screen and (min-width: 800px) {
@@ -268,9 +272,64 @@ nav ul li a {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+	margin-bottom: 15px;
 }
 
 h2 {
 	margin-top: 10px;
 	margin-bottom: 5px;
+}
+
+
+.pill-switch {
+	display: flex;
+	overflow: hidden;
+	background-color: #ccc;
+	border-radius: 25px;
+	cursor: pointer;
+}
+
+.pill-switch label {
+	flex: 1;
+	text-align: center;
+	padding: 10px;
+	color: white;
+}
+
+#dollar-label {
+	background-color: #4CAF50; /* Green color */
+	color: white; /* White text color */
+}
+
+#bitcoin-label {
+	background-color: #FF6500; /* Red color */
+	vertical-align: middle;
+}
+
+#denominationSwitch {
+	display: none;
+	vertical-align: middle;
+}
+
+#denominationSwitch:checked + #dollar-label {
+	background-color: #4CAF50;
+}
+
+#denominationSwitch:checked + #bitcoin-label {
+	background-color: #FF6500;
+}
+
+.reset-button::after {
+  content: 'X';
+  font-size: 20px; /* Adjust the font size */
+  font-weight: bold; /* Make the 'x' bold */
+  color: #555; /* Change the color to gray or any other color you prefer */
+  display: inline-block;
+  text-decoration: none; /* Remove underlines on the pseudo-element */
+  margin-top: 4px;
+}
+
+.reset-button, .reset-button:active, .reset-button:focus {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
 }

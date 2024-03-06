@@ -8,58 +8,64 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.5.0/web3.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/decimal.js/10.3.1/decimal.min.js"></script>
 	<script src="fetchData.js" defer></script>
+	<script src="denomination.js" defer></script>
 	<link rel="icon" href="../MainLogo.png" type="image/x-icon">
     <link rel="shortcut icon" href="../MainLogo.png" type="image/x-icon">
 	<script defer src="addressValidation.js" defer></script>
 </head>
 <body>
-			<h2>Protocol Stats</h2>
-    		<div class="stats-container">
-				<a href="https://snowscan.xyz/token/0x4c9dD74459AeA876Bc34b323c780D77b79fAD29F#balances" target="_blank" class="stat-button">
-					<div class="stat">
-						<span class="stat-label">Holders</span>
-						<span class="stat-value" id="holders-stat">...</span>
-					</div>
-				</a>
-				<a href="https://dexscreener.com/avalanche/0x8af5064a5351bf7d4f5bf916f0973fa987deef7b" target="_blank" class="stat-button">
-					<div class="stat">
-						<span class="stat-label">Price</span>
-						<span class="stat-value" id="price-stat">...</span>
-					</div>
-				</a>
-				<div class="stat">
-					<span class="stat-label">24H Volume</span>
-					<span class="stat-value" id ="24h-volume-stat">...</span>
-				</div>
-				<div class="stat">
-					<span class="stat-label">Total Rewards</span>
-					<span class="stat-value" id ="distrRewards-stat">...</span>
-				</div>
-			</div>
-			
-			<h2 id="holder-stats-header">Holder Stats</h2>
-			<div class="stats-container">
-				<div class="stat">
-					<span class="stat-label">$MACH1 Balance</span>
-					<span class="stat-value" id="holder-balance-stat">...</span>
-				</div>
-				<div class="stat">
-					<span class="stat-label">Value ($)</span>
-					<span class="stat-value" id="holder-value-stat">...</span>
-				</div>
-				<div class="stat">
-					<span class="stat-label">My Total Rewards</span>
-					<span class="stat-value" id ="holder-cumm-rewards-stat">...</span>
-				</div>
-				<div class="stat", id="unclaimed-reward-container">
-					<span class="stat-label">Unclaimed Rewards</span>
-					<span class="stat-value" id ="holder-unclaimed-rewards-stat">...</span>
-				</div>
-			</div>
-			<div class="addressInputContainer">
-					<input type="text" id="addressInput" placeholder="Enter your address">
-					<button id="calculateButton" onclick="validateAndUpdateHeader()">Calculate Stats</button>
-			</div>
-		
+	<h2>Protocol Stats</h2>
+	<div class="stats-container">
+		<div class="stat">
+			<span class="stat-label">Holders</span>
+			<span class="stat-value" id="holders-stat">...</span>
+		</div>
+		<div class="stat">
+			<span class="stat-label" id="price-label">Price ($)</span>
+			<span class="stat-value" id="price-stat">...</span>
+		</div>
+		<div class="stat">
+			<span class="stat-label" id ="24h-volume-label">24H Volume ($)</span>
+			<span class="stat-value" id ="24h-volume-stat">...</span>
+		</div>
+		<div class="stat">
+			<span class="stat-label" id ="distrRewards-label">Total Rewards (₿)</span>
+			<span class="stat-value" id ="distrRewards-stat">...</span>
+		</div>
+	</div>
+	
+	<h2 id="holder-stats-header">Holder Stats</h2>
+	<div class="stats-container">
+		<div class="stat">
+			<span class="stat-label">$MACH1 Balance</span>
+			<span class="stat-value" id="holder-balance-stat">...</span>
+		</div>
+		<div class="stat">
+			<span class="stat-label" id="holder-value-label">Value ($)</span>
+			<span class="stat-value" id="holder-value-stat">...</span>
+		</div>
+		<div class="stat">
+			<span class="stat-label" id ="holder-cumm-rewards-label">My Total Rewards (₿)</span>
+			<span class="stat-value" id ="holder-cumm-rewards-stat">...</span>
+		</div>
+		<div class="stat", id="unclaimed-reward-container">
+			<span class="stat-label" id ="holder-unclaimed-rewards-label">Unclaimed Rewards (₿)</span>
+			<span class="stat-value" id ="holder-unclaimed-rewards-stat">...</span>
+		</div>
+	</div>
+	<div class="addressInputContainer">
+			<input type="text" id="addressInput" placeholder="Enter your address">
+			<button id="calculateButton" onclick="validateAndUpdateHeader()">Calculate Stats</button>
+	</div>
+	<div class="pill-switch">
+		<input type="radio" id="denominationSwitch" name="denomination" checked>
+		<label for="denominationSwitch" id="dollar-label" onClick="selectDollar()">$
+		</label>
+		<input type="radio" id="denominationSwitch" name="denomination">
+		<label for="denominationSwitch" id="bitcoin-label" onClick="selectBitcoin()">₿
+		</label>
+	</div>
+	<a href="" class="reset-button" onclick="resetToDefault(event)"></a>
+	<br>
 </body>
 </html>
