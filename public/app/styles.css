@@ -130,7 +130,7 @@ nav ul li a {
 
 .stats-container {
     margin-top: 5px;
-	margin-bottom: 15px;
+	margin-bottom: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -139,12 +139,18 @@ nav ul li a {
 
 .stat {
     margin: 10px;
-    padding: 10px;
+    height: 65px;
     background-color: #fff;
     border: 2px solid #000;
     border-radius: 5px;
     text-align: center;
 	transition: background-color 0.3s;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	flex-direction: column;
+	padding-left: 9px;
+	padding-right: 9px;
 }
 
 .stat-label {
@@ -247,7 +253,7 @@ nav ul li a {
 }
 
 #addressInput {
-    padding: 10px;
+    padding: 6px;
     font-size: 16px;
     border: 2px solid #000;
     border-radius: 5px;
@@ -255,7 +261,7 @@ nav ul li a {
 }
 
 #calculateButton {
-    padding: 10px 20px;
+    padding: 6px 10px;
     font-size: 18px;
     border: 2px solid #000;
     border-radius: 5px;
@@ -272,7 +278,7 @@ nav ul li a {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 }
 
 h2 {
