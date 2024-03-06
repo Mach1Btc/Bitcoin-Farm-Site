@@ -28,24 +28,35 @@ async function fetchDataFromAvalanche() {
 }
 
 function updateStats(data) {
-    const holdersStatElement = document.getElementById("holders-stat");
+    const holdersStatElement = document.getElementById('holders-stat');
 
     // Check if data['holders'] is null or undefined
     holdersStatElement.innerHTML = data['holders'] !== null && data['holders'] !== undefined
-        ? data['holders']
+        ? formatNumber(data['holders'],0) 
         : "###";
 	
-	const distrRewardsElement = document.getElementById("distrRewards-stat");
+	const distrRewardsElement = document.getElementById('distrRewards-stat');
 	
 	// Check if data['distrRewards'] is null or undefined
     distrRewardsElement.innerHTML = data['distrRewards'] !== null && data['distrRewards'] !== undefined
         ? addDecimal(data['distrRewards'].toString(), 8) + ' Btc.b'
         : '#.######## Btc.b';
 		
-	const priceStatElement = document.getElementById("price-stat");
+	const priceStatElement = document.getElementById('price-stat');
+	
 	currentPrice = data['liqData'].pairs[0].priceUsd;
 	priceStatElement.innerHTML = '$' + currentPrice.toString();
 	localStorage.setItem('prevPrice', currentPrice);
+	
+	const volumeStatElement = document.getElementById('24h-volume-stat');
+
+	volume = data['liqData'].pairs[0].volume.h24;
+	if (volume == 0){
+		volumeStatElement.innerHTML = ':(';
+	} else {
+		volumeStatElement.innerHTML = '$' + formatNumber(volume,0);
+		localStorage.setItem('prevVol', volume);
+	}
 	
 }
 
