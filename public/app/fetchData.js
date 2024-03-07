@@ -252,20 +252,18 @@ async function fetchHolderStats(address){
 		throw error;
 	}
 	try{
-		const divPerShare = await distributorContract.methods.dividendsPerShare().call();
-		const shareAcc = await distributorContract.methods.dividendsPerShareAccuracyFactor().call();
-		const shares = await distributorContract.methods.shares(address).call();
-		const amount = shares.amount;
-		
-		data['cummRewards'] = amount * divPerShare / shareAcc;
-		console.log('Holders reward balance from distributor contract:', data['cummRewards']);
-	} catch (error) {
-		console.error('Error fetching holder\'s cummulative rewards:', error);
-		throw error;
-	}
-	try{
 		data['unclaimRewards'] = await distributorContract.methods.getUnpaidEarnings(address).call();
 		console.log('Holders unclaimed balance from distributor contract:', data['unclaimRewards']);
+		try{
+			const shares = await distributorContract.methods.shares(address).call();
+			const realizedRewards = shares.totalRealised;
+			
+			data['cummRewards'] = data['unclaimRewards'] + realizedRewards;
+			console.log('Holders reward balance from distributor contract:', data['cummRewards']);
+		} catch (error) {
+			console.error('Error fetching holder\'s cummulative rewards:', error);
+			throw error;
+		}
 	} catch (error) {
 		console.error('Error fetching holder\'s unclaimed rewards:', error);
 		throw error;
@@ -333,9 +331,7 @@ function formatNumber(number, decimalPlaces = 2) {
   }
 
   // Round the number to the specified decimal places
-  console.log(number);
   const roundedNumber = +(Number(number).toFixed(decimalPlaces));
-  console.log(roundedNumber);
 
   // Add commas for thousands separator
   const formattedNumber = roundedNumber.toString();
