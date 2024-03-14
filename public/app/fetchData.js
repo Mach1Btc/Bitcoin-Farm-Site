@@ -331,10 +331,10 @@ function formatNumber(number, decimalPlaces = 2) {
   }
 
   // Round the number to the specified decimal places
-  const roundedNumber = +(Number(number).toFixed(decimalPlaces));
+  const roundedNumber = +Number(number).toFixed(decimalPlaces);
 
   // Add commas for thousands separator
-  const formattedNumber = roundedNumber.toString();
+  const formattedNumber = roundedNumber.toLocaleString();
 
   return formattedNumber;
 }
