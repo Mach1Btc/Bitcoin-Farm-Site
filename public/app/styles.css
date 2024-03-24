@@ -191,66 +191,7 @@ nav ul li a {
     color: #fff;
 }
 
-@media only screen and (max-width: 799px) {
-	body{
-		background-size: 100% 150%;
-		font-size: 14px;
-	}
-		
-	.body-container {
-		transform: scale(.8); /* Reset the transform for smaller screens */
-		width: auto;
-	}
-	
-	.app-link{
-		transform: scale(.8);
-	}
-	
-	nav ul li a{
-		width: 250px; /* Adjust this value based on your design */
-	}
-	
-	nav ul li a.tap-effect{
-    background-color: #000;
-    color: #fff;
-	}
 
-	.stat.tap-effect {
-		background-color: #000;
-		color: #fff;
-	}
-
-	.stat.tap-effect .stat-label,
-	.stat.tap-effect .stat-value {
-		color: #fff;
-	}
-	
-	body {
-		font-family: 'Roboto', sans-serif;
-	}
-}
-
-@media only screen and (min-width: 800px) {
-    nav ul li a:hover {
-        background-color: #000;
-        color: #fff;
-    }
-
-    .stat:hover {
-        background-color: #000;
-        color: #fff;
-    }
-
-    .stat:hover .stat-label,
-    .stat:hover .stat-value {
-        color: #fff;
-    }
-	
-	#calculateButton:hover {
-		background-color: #000;
-		color: #fff;
-	}
-}
 
 #addressInput {
     padding: 6px;
@@ -338,4 +279,89 @@ h2 {
 .reset-button, .reset-button:active, .reset-button:focus {
     -webkit-tap-highlight-color: transparent;
     outline: none;
+}
+
+.floating-home-button {
+  position: fixed;
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  transform: translateX(-50%); /* Adjust horizontal positioning */
+  background-color: #FF6500;
+  color: #ffffff;
+  padding: 5px;
+  text-decoration: none;
+  font-size: 24px; /* Adjust icon size */
+  border-radius: 50%;
+  z-index: 1000;
+}
+
+.floating-home-button:hover {
+  background-color: #ffcc00;
+}
+
+@media only screen and (max-width: 799px) {
+	body{
+		background-size: 100% 150%;
+		font-size: 14px;
+	}
+		
+	.body-container {
+		transform: scale(.8); /* Reset the transform for smaller screens */
+		width: auto;
+	}
+	
+	.app-link{
+		transform: scale(.8);
+	}
+	
+	nav ul li a{
+		width: 250px; /* Adjust this value based on your design */
+	}
+	
+	nav ul li a.tap-effect{
+    background-color: #000;
+    color: #fff;
+	}
+
+	.stat.tap-effect {
+		background-color: #000;
+		color: #fff;
+	}
+
+	.stat.tap-effect .stat-label,
+	.stat.tap-effect .stat-value {
+		color: #fff;
+	}
+	
+	body {
+		font-family: 'Roboto', sans-serif;
+	}
+	
+	.floating-home-button {
+		font-size: 18px; /* Adjust icon size */
+		background-color: #ffcc00;
+		-webkit-tap-highlight-color: transparent;
+	}
+}
+
+@media only screen and (min-width: 800px) {
+    nav ul li a:hover {
+        background-color: #000;
+        color: #fff;
+    }
+
+    .stat:hover {
+        background-color: #000;
+        color: #fff;
+    }
+
+    .stat:hover .stat-label,
+    .stat:hover .stat-value {
+        color: #fff;
+    }
+	
+	#calculateButton:hover {
+		background-color: #000;
+		color: #fff;
+	}
 }
