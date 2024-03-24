@@ -367,17 +367,34 @@ function formatNumber(number, decimalPlaces = 2) {
   return formattedNumber;
 }
 
+function getParameterByName(name, url = window.location.href) {
+	console.log("hit");
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
 // Trigger the data fetching when the DOM is ready
 document.addEventListener('DOMContentLoaded', function () {
     fetchDataFromAvalanche();
 	
 	// Check if the address is stored in localStorage
     const cachedAddress = localStorage.getItem('userAddress');
-	
-	if (cachedAddress) {
+	const urlTarget = getParameterByName('target');
+	console.log(urlTarget);
+	if (cachedAddress && urlTarget == null) {
         document.getElementById('addressInput').value = cachedAddress;
 		validateAndUpdateHeader();
-    }
+    } else if (urlTarget != ''){
+		document.getElementById('addressInput').value = urlTarget;
+		validateAndUpdateHeader();
+		if(cachedAddress == null) {
+			localStorage.setItem('userAddress', urlTarget);
+		}
+	}
 	
 	const addressInput = document.getElementById('addressInput');
 

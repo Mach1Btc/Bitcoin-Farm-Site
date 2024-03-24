@@ -58,6 +58,16 @@ div iframe {
     text-decoration: underline;
 }
 
+.link-text {
+	cursor: pointer;
+    color: #000; /* Black color for the text */
+    text-decoration: underline;
+}
+
+.link-text:hover {
+	text-decoration: none; /* Remove underline on hover */
+}
+
 .copy-text.clicked {
     animation: flash 0.5s ease-out;
 }
