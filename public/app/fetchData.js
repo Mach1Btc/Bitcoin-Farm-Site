@@ -253,7 +253,6 @@ async function fetchBurnedTokenData() {
 	burned = 0;
 	try {
 		const dead = await tokenContract.methods.balanceOf('0x000000000000000000000000000000000000dEaD').call();
-		console.log(dead);
 		const zero = await tokenContract.methods.balanceOf('0x0000000000000000000000000000000000000000').call();
 		const total = dead + zero;
 		console.log('Burned token data from token contract:', total);
@@ -328,7 +327,6 @@ function updateHolderStats(data){
 function addDecimal(stringValue, decimalPlaces) {
   const parts = String(stringValue).split('');
   let length = parts.length;
-  console.log(length);
   // Calculate the position of the decimal point
   const decimalIndex = length - decimalPlaces;
   
