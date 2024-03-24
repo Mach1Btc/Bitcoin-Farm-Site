@@ -24,6 +24,7 @@ async function fetchDataFromAvalanche() {
 	data['distrRewards'] = await fetchRewardsData(web3);
 	data['liqData'] = await fetchLiquidityData();
 	data['btcData'] = await fetchBtcLiquidityData();
+	data['burned'] = await fetchBurnedTokenData();
 	
     // Update the stats container with the fetched data
     updateStats(true);
@@ -36,8 +37,14 @@ function updateHolders(){
 		? formatNumber(data['holders'],0) 
 		: "###";
 }
+function updateSupply(){
+	const supplyElement = document.getElementById('supply-stat');
+	// Check if data['burned'] is null or undefined or 0 (data failed to fetch)
+	supplyElement.innerHTML = data['burned'] !== null && data['burned'] !== undefined && data['burned'] !== 0
+		? '10M / ' + formatNumber(addDecimal(data['burned'],24),2) + 'M'
+		: '10M / 0.53M';
+}
 function updateBalance(){
-	console.log(data);
 	const balanceElement = document.getElementById("holder-balance-stat");
     // Check if data['balanceOf'] is null or undefined
     balanceElement.innerHTML = data['balanceOf'] !== null && data['balanceOf'] !== undefined
@@ -174,6 +181,7 @@ function updateUnpaidRewards(switchState) {
 function updateStats(holders=false) {
 	const switchState = document.getElementById('denominationSwitch').checked;
 	updateHolders();
+	updateSupply();
 	updateDistributedRewards(switchState);
 	updatePrice(switchState);
 	updateVolume(switchState);
@@ -239,6 +247,24 @@ async function fetchBtcLiquidityData() {
 	}
 }
 
+async function fetchBurnedTokenData() {
+	const web3 = new Web3(new Web3.providers.HttpProvider(rpcEndpoint));
+	const tokenContract = new web3.eth.Contract(token_abi, token_addr);
+	burned = 0;
+	try {
+		const dead = await tokenContract.methods.balanceOf('0x000000000000000000000000000000000000dEaD').call();
+		console.log(dead);
+		const zero = await tokenContract.methods.balanceOf('0x0000000000000000000000000000000000000000').call();
+		const total = dead + zero;
+		console.log('Burned token data from token contract:', total);
+		return total;
+	} catch (error){
+		console.error('Error fetching burned token data:', error);
+		throw error;
+	}
+	return burned;
+}
+
 async function fetchHolderStats(address){
 	const web3 = new Web3(new Web3.providers.HttpProvider(rpcEndpoint));
 	const tokenContract = new web3.eth.Contract(token_abi, token_addr);
@@ -275,7 +301,6 @@ async function fetchHolderStats(address){
 
 function updateHolderStats(data){
 
-
 	updateBalance(data);
 		
 	const cummRewardsElement = document.getElementById("holder-cumm-rewards-stat");
@@ -303,10 +328,15 @@ function updateHolderStats(data){
 function addDecimal(stringValue, decimalPlaces) {
   const parts = String(stringValue).split('');
   let length = parts.length;
+  console.log(length);
   // Calculate the position of the decimal point
   const decimalIndex = length - decimalPlaces;
   
-  if (decimalIndex == 0) { return parts.join('');}
+  if (decimalIndex == 0) { 
+	parts.unshift('.');
+	parts.unshift(0);
+	return parts.join('');
+  }
   
   if (decimalIndex < 0 ) {
 	let i = decimalIndex;
