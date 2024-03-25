@@ -1,4 +1,4 @@
-async function validateAndUpdateHeader() {
+async function validateAndUpdateHeader(cache = false) {
 	// Get the address entered by the user
 	var address = document.getElementById("addressInput").value;
 	
@@ -26,7 +26,9 @@ async function validateAndUpdateHeader() {
 	// Update the displayed information
 	document.getElementById("holder-stats-header").innerHTML = holderStats;
 	
-	localStorage.setItem('userAddress', address);
+	if (cache) {
+		localStorage.setItem("userAddress", address);
+	}
 	
 	await fetchHolderStats(address);
 }

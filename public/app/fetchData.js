@@ -99,7 +99,7 @@ function updateVolume(switchState){
 		if (volume == 0){
 			volumeStatElement.innerHTML = ':(';
 		} else {
-			volumeStatElement.innerHTML = '$' + formatNumber(volume,0);
+			volumeStatElement.innerHTML = '$' + formatNumber(volume,2);
 		}
 	} else {
 		//₿
@@ -393,6 +393,15 @@ document.addEventListener('DOMContentLoaded', function () {
 		validateAndUpdateHeader();
 		if(cachedAddress == null) {
 			localStorage.setItem('userAddress', urlTarget);
+		}
+	}
+	
+	const unit = getParameterByName('unit');
+	if (unit != null) {
+		if ( unit == 'BTC') {
+			selectBitcoin();
+		} else if ( unit == 'USD') {
+			selectDollar();
 		}
 	}
 	
