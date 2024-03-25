@@ -156,9 +156,11 @@ function updateTotalRewards(switchState) {
 function updateUnpaidRewards(switchState) {
 	btcBCurrentPrice = data['btcData'].pairs[0].priceUsd;
 	localStorage.setItem('prevBtcBPrice', btcBCurrentPrice);
+	const unclaimedRewardsStatElement = document.getElementById("unclaimed-reward-container");
 	if (data['unclaimRewards'] == 0) {
-		const unclaimedRewardsStatElement = document.getElementById("unclaimed-reward-container");
 		unclaimedRewardsStatElement.style.display = "none";
+	} else {
+		unclaimedRewardsStatElement.style.display = "flex";
 	}
 	const unclaimRewardsLabelElement = document.getElementById('holder-unclaimed-rewards-label');
 	const unclaimRewardsStatElement = document.getElementById('holder-unclaimed-rewards-stat');

@@ -153,6 +153,10 @@ nav ul li a {
 	padding-right: 9px;
 }
 
+.hidden {
+    display: none;
+}
+
 .stat-label {
     display: block;
     font-weight: bold;
