@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mach1 Btc Farm App</title>
     <link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="darkModeStyles.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.5.0/web3.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/decimal.js/10.3.1/decimal.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	<script src="denomination.js" defer></script>
 	<script src="fetchData.js" defer></script>
+	<script src="darkMode.js" defer></script>
+	
 	<link rel="icon" href="../simple.webp" type="image/x-icon">
     <link rel="shortcut icon" href="../simple.webp" type="image/x-icon">
 	<script defer src="addressValidation.js" defer></script>
@@ -30,9 +33,23 @@
 	
 </head>
 <a href="/" class="floating-home-button"><i class="fas fa-home"></i></a>
+<button id="dark-mode-switch" class="dark-mode-switch"><i class="far fa-moon"></i></button>
 <body>
 
-	
+	<header>
+		<script>
+			// Immediately invoked function to set the theme based on localStorage
+			(function() {
+				if (localStorage.getItem('darkMode') === 'enabled') {
+					document.body.classList.add('dark-mode');
+				} else {
+					// Assume light mode by default and apply necessary styles
+					document.body.style.backgroundColor = '#FFF';
+					document.body.style.color = '#000';
+				}
+			})();
+		</script>
+    </header>
 	
 	<h2>Protocol Stats</h2>
 	<div class="stats-container">
@@ -41,12 +58,12 @@
 			<span class="stat-value" id="holders-stat">...</span>
 		</div>
 		<div class="stat">
-			<span class="stat-label" id="price-label">Price ($)</span>
-			<span class="stat-value" id="price-stat">...</span>
-		</div>
-		<div class="stat">
 			<span class="stat-label" id="supply-label">Supply / Burned</span>
 			<span class="stat-value" id="supply-stat">...</span>
+		</div>
+		<div class="stat">
+			<span class="stat-label" id="price-label">Price ($)</span>
+			<span class="stat-value" id="price-stat">...</span>
 		</div>
 		<div class="stat">
 			<span class="stat-label" id ="24h-volume-label">24H Volume ($)</span>

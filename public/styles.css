@@ -62,6 +62,7 @@ div iframe {
 	cursor: pointer;
     color: #000; /* Black color for the text */
     text-decoration: underline;
+	-webkit-tap-highlight-color: transparent;
 }
 
 .link-text:hover {
@@ -109,6 +110,7 @@ nav ul li a {
     border-radius: 5px; /* Rounded corners */
     transition: background-color 0.3s, color 0.3s; /* Smooth transition */
 	width: 350px;
+	-webkit-tap-highlight-color: transparent;
 }
 
 #app {
