@@ -34,7 +34,7 @@ function updateHolders(){
 	const holdersStatElement = document.getElementById('holders-stat');
 	// Check if data['holders'] is null or undefined
 	holdersStatElement.innerHTML = data['holders'] !== null && data['holders'] !== undefined
-		? formatNumber(data['holders'],0) 
+		? formatNumber(data['holders'],0)
 		: "###";
 }
 function updateSupply(){
@@ -48,7 +48,7 @@ function updateBalance(){
 	const balanceElement = document.getElementById("holder-balance-stat");
     // Check if data['balanceOf'] is null or undefined
     balanceElement.innerHTML = data['balanceOf'] !== null && data['balanceOf'] !== undefined
-        ? formatNumber(addDecimal(data['balanceOf'], 18))
+        ? Number(formatNumber(+addDecimal(data['balanceOf'], 18))).toLocaleString()
         : "###";
 }
 function updateDistributedRewards(switchState){
@@ -359,7 +359,7 @@ function formatNumber(number, decimalPlaces = 2) {
   }
 
   // Round the number to the specified decimal places
-  const roundedNumber = +Number(number).toFixed(decimalPlaces);
+  const roundedNumber = Number(number).toFixed(decimalPlaces);
 
   // Add commas for thousands separator
   const formattedNumber = roundedNumber.toLocaleString();
@@ -368,7 +368,6 @@ function formatNumber(number, decimalPlaces = 2) {
 }
 
 function getParameterByName(name, url = window.location.href) {
-	console.log("hit");
     name = name.replace(/[\[\]]/g, '\\$&');
     var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
         results = regex.exec(url);
@@ -384,7 +383,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Check if the address is stored in localStorage
     const cachedAddress = localStorage.getItem('userAddress');
 	const urlTarget = getParameterByName('target');
-	console.log(urlTarget);
 	if (cachedAddress && urlTarget == null) {
         document.getElementById('addressInput').value = cachedAddress;
 		validateAndUpdateHeader();
